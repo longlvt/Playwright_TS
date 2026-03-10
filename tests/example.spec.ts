@@ -36,6 +36,8 @@ test.only('check Home page', async ({page}) => {
   
   await page.getByRole('link', { name: 'Get started'}).click();
 
+  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+
   await page.getByRole('button', { name: 'Node.js'}).hover();
   await page.getByRole('link', { name: 'Java', exact: true }).click();
 

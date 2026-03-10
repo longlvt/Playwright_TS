@@ -18,9 +18,10 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  // retries: process.env.CI ? 2 : 0,
+  retries: 2,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 50 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -30,7 +31,11 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    // headless: false,
   },
+
+  outputDir: 'test-results/',
 
   /* Configure projects for major browsers */
   projects: [
@@ -48,6 +53,27 @@ export default defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
+    {
+      name: 'all-browsers-and-tests',
+      use: {
+        baseURL: 'https://playwright.dev/',
+        ...devices['Desktop Firefox']
+      }
+    },
+    {
+      name: 'all-browsers-and-tests',
+      use: {
+        baseURL: 'https://playwright.dev/',
+        ...devices['Desktop Chrome']
+      }
+    },
+    {
+      name: 'all-browsers-and-tests',
+      use: {
+        baseURL: 'https://playwright.dev/',
+        ...devices['Desktop Safari']
+      }
+    }
 
     /* Test against mobile viewports. */
     // {

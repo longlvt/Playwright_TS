@@ -29,7 +29,7 @@ test.describe('Playwright Home Page', () => {
     });
 
     test('check Home page', async ({page}) => {
-        await test.step('Act', async () => {      
+        await test.step('Act', async () => {
             await clickGetStarted(page);
 
             await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();

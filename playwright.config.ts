@@ -1,4 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
+import envBaseUrl from './utils/envBaseUrl';
+require('dotenv').config();
 
 /**
  * Read environment variables from file.
@@ -19,12 +21,14 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   // retries: process.env.CI ? 2 : 0,
-  retries: 2,
+  retries: 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 50 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
+  timeout: 5000,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  // globalSetup: require.resolve('./setup/global-setup'),
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
@@ -32,13 +36,23 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
-    // headless: false,
+    headless: true,
+    // storageState: 'storageState.json',
+    baseURL: process.env.ENV === 'production' 
+      ? envBaseUrl.production.home
+      : process.env.ENV === 'staging' 
+        ? envBaseUrl.staging.home
+        : envBaseUrl.local.home
   },
 
   outputDir: 'test-results/',
 
   /* Configure projects for major browsers */
   projects: [
+    { 
+      name: 'auth-setup', 
+      testMatch: /auth-setup\.ts/ 
+    },
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
@@ -73,7 +87,15 @@ export default defineConfig({
         baseURL: 'https://playwright.dev/',
         ...devices['Desktop Safari']
       }
-    }
+    },
+    {
+      name: 'chromium-auth',
+      use: { 
+        ...devices['Desktop Chrome'] ,
+        storageState: '.auth/user.json',
+      },
+      dependencies: ['auth-setup'],
+    },
 
     /* Test against mobile viewports. */
     // {

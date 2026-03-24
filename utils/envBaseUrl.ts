@@ -1,18 +1,19 @@
 export default {
-  ci: {
-    prefix: 'https://dev-myapp-',
-    suffix: '.mydomain.com',
-  },
-  local: {
-    api: 'https://local-myapp.mydomain.com/api',
-    home: 'https://local-myapp.mydomain.com',
-  },
-  production: {
-    api: 'https://myapp.mydomain.com/api',
-    home: 'https://myapp.mydomain.com',
-  },
-  staging: {
-    api: 'https://staging-myapp.mydomain.com/api',
-    home: 'https://staging-myapp.mydomain.com',
-  },
+    ci: {
+      prefix: 'https://demoqa',
+      suffix: '.com',
+    },
+    local: {
+      api: 'https://demoqa.com',
+      home: 'https://demoqa.com',
+    },
+    production: {
+      api: 'https://demoqa.com',
+      home: 'https://demoqa.com',
+    },
+    staging: {
+      api: 'https://demoqa.com',
+      home: 'https://demoqa.com',
+    },
 };
+  

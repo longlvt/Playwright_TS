@@ -5,16 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test:e2e": "npx playwright test tests/",
-    "test:e2e:all": "npx playwright test tests --project=all-browsers-and-tests"
+    "test:e2e:all": "npx playwright test tests --project=all-browsers-and-tests",
+    "test-ui-auth-user": "npx playwright test profile-stored-auth-multi-role-user.spec.ts --project=chromium-auth ",
+    "test-ui-auth": "npx playwright test profile-stored-auth-multi-role-example.spec.ts --project=chromium-auth "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@applitools/eyes-playwright": "^4.0.0",
+    "@applitools/eyes-playwright": "^1.17.5",
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.3.0",
-    "@dotenv": "^16.0.3"
+    "dotenv": "^16.0.3"
   }
 }

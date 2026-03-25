@@ -38,6 +38,7 @@ setup('Setup authentication for user role', async ({ page }) => {
 
     await page.goto(baseURL + uiPages.login);
 
+    // TODO: Work-around for "Already logged in" scenario. Need to find a better way to handle this.
     if (await profilePage.logoutButton.isVisible()) {
         console.log("Already logged in, logout and login again to refresh the storage state file");
         await profilePage.logoutButton.click();

@@ -3,8 +3,8 @@ import LoginPage from '../../pages/login-page';
 import uiPages from '../../utils/uiPages';
 
 async function globalSetup(config: FullConfig) {
-  const user = process.env.USERNAME;
-  const password = process.env.PASSWORD;
+  const user = process.env.USERNAME || "test_name";
+  const password = process.env.PASSWORD || "aaa";
   const { baseURL, storageState } = config.projects[0].use;
   console.log('Global setup - logging in with user:', baseURL);
   console.log('Save storage state to:', storageState);

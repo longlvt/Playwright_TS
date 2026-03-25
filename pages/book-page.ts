@@ -2,6 +2,7 @@ import { type Page, type Locator , expect } from '@playwright/test';
 import { buildUrl } from '../utils/uiUrlBuilder';
 import messages from '../utils/messages';
 import pages from '../utils/pages';
+import baseUrl from '../utils/envBaseUrl';
 
 class BookPage {
   readonly page: Page;
@@ -14,7 +15,7 @@ class BookPage {
  
   constructor(page: Page) {
     this.page = page;
-    this.addToYourCollectionButton = page.getByText('Add To Your Collection', { exact: true });
+    this.addToYourCollectionButton = page.getByRole('button', { name: 'Add To Your Collection' });
     this.backToBookStoreButton = page.getByText('Back To Book Store', { exact: true });
     this.isbnLabel = page.locator('#ISBN-wrapper').nth(1);
     this.speakingJSBook = page.getByText('Speaking JavaScript', { exact: true });
@@ -23,10 +24,11 @@ class BookPage {
   }
 
   async goto(isbn: string) {
-    const params = { book: isbn };
-    const url = buildUrl(pages.booksStorePage, params);
-    console.log(`GO TO BOOK URL: ${url}`)
-    await this.page.goto(url);
+    const env = process.env.ENV;
+    const params = { search: isbn };
+    const targetUrl = buildUrl(pages.booksStorePage, params);
+    console.log(`GO TO BOOK URL: ${baseUrl[env].home + targetUrl}`)
+    await this.page.goto(baseUrl[env].home + targetUrl);
   }
 
   async addToYourCollection(isDupe?: boolean) {

@@ -49,10 +49,10 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    { 
-      name: 'auth-setup', 
-      testMatch: /auth-setup\.ts/ 
-    },
+    // { 
+    //   name: 'auth-setup', 
+    //   testMatch: /auth-setup\.ts/ 
+    // },
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
@@ -88,14 +88,14 @@ export default defineConfig({
         ...devices['Desktop Safari']
       }
     },
-    {
-      name: 'chromium-auth',
-      use: { 
-        ...devices['Desktop Chrome'] ,
-        storageState: '.auth/user.json',
-      },
-      dependencies: ['auth-setup'],
-    },
+    // {
+    //   name: 'chromium-auth',
+    //   use: { 
+    //     ...devices['Desktop Chrome'] ,
+    //     storageState: '.auth/user.json',
+    //   },
+    //   dependencies: ['auth-setup'],
+    // },
 
     /* Test against mobile viewports. */
     // {

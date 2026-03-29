@@ -8,6 +8,7 @@ const userName = process.env.USERNAME || userData.invalidUsername;
 const password = process.env.PASSWORD || userData.invalidPassword;
 let loginPage: LoginPage;
 
+// Use this to clear the storage state, and don't load the sign-in state
 test.use({ storageState: {cookies: [], origins: []} });
 
 test.describe.configure({ mode: 'serial' });

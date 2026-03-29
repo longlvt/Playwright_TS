@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test:e2e": "npx playwright test tests/",
+    "test-ui-c": "npx playwright test tests/ --project=chromium",
     "test:e2e:all": "npx playwright test tests --project=all-browsers-and-tests",
     "test-ui-auth-user": "npx playwright test profile-stored-auth-multi-role-user.spec.ts --project=chromium-auth ",
     "test-ui-auth": "npx playwright test profile-stored-auth-multi-role-example.spec.ts --project=chromium-auth ",

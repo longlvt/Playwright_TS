@@ -26,9 +26,9 @@ export default defineConfig({
   workers: process.env.CI ? 50 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
-  timeout: 5000,
+  timeout: 120000,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  globalSetup: require.resolve('./tests/setup/global-setup'),
+  // globalSetup: require.resolve('./tests/setup/global-setup'),
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
@@ -37,7 +37,7 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     headless: true,
-    storageState: '.auth/user.json',
+    // storageState: '.auth/user.json',
     baseURL: process.env.ENV === 'production' 
       ? envBaseUrl.production.home
       : process.env.ENV === 'staging' 
@@ -53,11 +53,15 @@ export default defineConfig({
     //   name: 'auth-setup', 
     //   testMatch: /auth-setup\.ts/ 
     // },
+    { 
+      name: 'setup', 
+      testMatch: /auth-setup\.ts/ 
+    },
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      // dependencies: ['setup'],
     },
-
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },

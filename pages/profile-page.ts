@@ -1,10 +1,10 @@
 import { type Page, type Locator , expect, type BrowserContext } from '@playwright/test';
-// import bookListData from '../../data/book-list-data';
-// import apiPaths from '../../utils/apiPaths';
+import bookListData from '../data/mock-book-list-data';
+import apiPaths from '../utils/apiPaths';
 
 class SearchPage {
   readonly page: Page;
-//   readonly booksCollectionRequestRegExp: RegExp;
+  readonly booksCollectionRequestRegExp: RegExp;
   readonly userNameLable: Locator;
   readonly gridRow1: Locator;
   readonly gridRow2: Locator;
@@ -15,6 +15,7 @@ class SearchPage {
   
   constructor(page: Page) {
     this.page = page;
+    this.booksCollectionRequestRegExp = new RegExp(apiPaths.account);
     this.userNameLable = page.getByText('User Name :', { exact: true });
     this.userNameLable = page.locator('#userName-value');
     this.gridRow1 = page.locator('div:nth-child(1) > .rt-tr > div:nth-child(2)').last();
@@ -22,7 +23,7 @@ class SearchPage {
     this.notLoggedInLabel = page.getByText('Currently you are not logged into the Book Store application, please visit the login page to enter or register page to register yourself.');
     this.searchField = page.getByPlaceholder('Type to search');
     this.titleHeaderLabel = page.getByText('Title');
-    this.logoutButton = page.getByRole('button', { name: 'Logout' });;
+    this.logoutButton = page.getByRole('button', { name: 'Log out' });
   }
 
   async fillSearchField(q: string) {
@@ -32,11 +33,11 @@ class SearchPage {
   async checkSearchResult(q: string, items: string) {
   }
 
-//   async checkBooksList() {
-//     for (const book of bookListData.books){
-//       await expect(this.page.getByRole('link', { name: book.title })).toBeVisible();
-//     }
-//   }
+  async checkBooksList() {
+    for (const book of bookListData.books){
+      await expect(this.page.getByRole('link', { name: book.title })).toBeVisible();
+    }
+  }
 
   async sortBooksList() {
     await this.titleHeaderLabel.click({ clickCount: 2 });
@@ -65,11 +66,15 @@ class SearchPage {
   async getBooksList() {
   }
 
-//   async mockBooksListResponse(context: BrowserContext) {
-//     await context.route(this.booksCollectionRequestRegExp, (route) => route.fulfill({
-//       body: JSON.stringify({...(bookListData)})
-//     }));
-//   }
+  async mockBooksListResponse(page: Page) {
+    const userId = process.env.USERID!
+    const accountEndpoint = this.booksCollectionRequestRegExp + userId
+    console.log("ABOUT TO MOCK THIS:", accountEndpoint)
+    await page.route(accountEndpoint, (route) => route.fulfill({
+      status: 200,
+      body: JSON.stringify({...(bookListData)})
+    }));
+  }
 }
 
 export default SearchPage;

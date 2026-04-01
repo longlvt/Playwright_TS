@@ -28,16 +28,16 @@ export default defineConfig({
   reporter: 'html',
   timeout: 120000,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  // globalSetup: require.resolve('./tests/setup/global-setup'),
+  globalSetup: require.resolve('./tests/setup/global-setup'),
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
+    screenshot: 'on',
     headless: true,
-    // storageState: '.auth/user.json',
+    storageState: '.auth/user.json',
     baseURL: process.env.ENV === 'production' 
       ? envBaseUrl.production.home
       : process.env.ENV === 'staging' 

@@ -1,11 +1,11 @@
 import { test } from '@playwright/test';
 import ProfilePage from '../../pages/profile-page';
-import pages from '../../utils/pages';
+import uiPages from '../../utils/uiPages';
 
 let profilePage: ProfilePage;
 
 test.beforeEach(async ({ page }) => {
-    await page.goto(pages.profilePage);
+    await page.goto(uiPages.profile);
     profilePage = new ProfilePage(page);
 });
 

@@ -1,7 +1,6 @@
 import { type Page, type Locator , expect } from '@playwright/test';
 import { buildUrl } from '../utils/uiUrlBuilder';
 import messages from '../utils/messages';
-import pages from '../utils/pages';
 import baseUrl from '../utils/envBaseUrl';
 
 class BookPage {
@@ -26,7 +25,7 @@ class BookPage {
   async goto(isbn: string) {
     const env = process.env.ENV;
     const params = { search: isbn };
-    const targetUrl = buildUrl(pages.booksStorePage, params);
+    const targetUrl = buildUrl('bookStore', params);
     console.log(`GO TO BOOK URL: ${baseUrl[env].home + targetUrl}`)
     await this.page.goto(baseUrl[env].home + targetUrl);
   }

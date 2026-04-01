@@ -1,17 +1,16 @@
 import { test } from '@playwright/test';
-import ProfilePage from '../../pages/profile-page';
+import ApplicationForm from '../../pages/application-form';
 import hooks from '../../utils/hooks';
-import uiPages from '../../utils/uiPages';
 
-let profilePage: ProfilePage;
+let appForm: ApplicationForm;
 
 test.beforeEach(async ({ page }) => {
-    profilePage = await hooks.beforeEach(page, ProfilePage, 'profile');
+    appForm = await hooks.beforeEach(page, ApplicationForm, 'form');
 })
 
 test.describe('Profile - Dynamic Page Object Model', () => {
     test('Check logged in', async () => {
         const userName = process.env.USERNAME!;
-        await profilePage.checkLoggedInUser(userName);
+        await appForm.fillFirstName(userName);
     })
 })

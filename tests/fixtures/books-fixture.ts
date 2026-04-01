@@ -1,7 +1,7 @@
 import { test as base } from '@playwright/test';
 import BookPage from '../../pages/book-page';
 import hooks from '../../utils/hooks';
-import pages from '../../utils/pages';
+import uiPages from '../../utils/uiPages';
 
 type MyFixtures = {
     bookPage: BookPage;
@@ -15,7 +15,7 @@ export const test = base.extend<MyFixtures & Duplicate>({
     isDup: false,
 
     bookPage: async ({ page, isDup }, use) => {
-        const bookPage = await hooks.beforeEach(page, BookPage, pages.booksStorePage) as BookPage;
+        const bookPage = await hooks.beforeEach(page, BookPage, 'bookStore');
 
         await use(bookPage);
 

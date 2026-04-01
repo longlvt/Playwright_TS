@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import LoginPage from '../pages/login-page';
-import pages from '../utils/pages';
+import uiPages from '../utils/uiPages';
 
 import userData from '../data/user-data';
 
@@ -14,7 +14,7 @@ test.use({ storageState: {cookies: [], origins: []} });
 test.describe.configure({ mode: 'serial' });
 
 test.beforeEach(async ({ page }) => {
-    await page.goto(pages.loginPage);
+    await page.goto(uiPages.login);
     loginPage = new LoginPage(page);
 });
 

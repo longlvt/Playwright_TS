@@ -12,7 +12,8 @@
     "test-ui-auth-user": "npx playwright test profile-stored-auth-multi-role-user.spec.ts --project=chromium-auth ",
     "test-ui-auth": "npx playwright test profile-stored-auth-multi-role-example.spec.ts --project=chromium-auth ",
     "test-ui-pom": "npx playwright test form-with-dynamic-pom.spec.ts --project=chromium ",
-    "test-ui-fixtures": "npx playwright test book-with-fixture-and-api.spec.ts --project=chromium "
+    "test-ui-fixtures": "npx playwright test book-with-fixture-and-api.spec.ts --project=chromium ",
+    "test-ui-fixtures-search": "npx playwright test search-book-with-fixture.spec.ts --project=chromium "
   },
   "keywords": [],
   "author": "",

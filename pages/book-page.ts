@@ -11,6 +11,7 @@ class BookPage {
   readonly speakingJSBook: Locator;
   readonly speakingJSBookIsbnLabel: Locator;
   readonly titleLabel: Locator;
+  readonly searchBox: Locator;
  
   constructor(page: Page) {
     this.page = page;
@@ -20,6 +21,7 @@ class BookPage {
     this.speakingJSBook = page.getByText('Speaking JavaScript', { exact: true });
     this.speakingJSBookIsbnLabel = page.getByText('9781449365035', { exact: true });
     this.titleLabel = page.locator('#title-wrapper').locator('#userName-value');
+    this.searchBox = page.getByRole('textbox', { name: 'Type to search' });
   }
 
   async goto(isbn: string) {
@@ -68,6 +70,11 @@ class BookPage {
         await dialog.accept();
     });
   }
+  
+  async fillSearchBox(value: string) {
+    await this.searchBox.fill(value);
+  }
+
 }
 
 export default BookPage;

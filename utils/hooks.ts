@@ -9,7 +9,7 @@ import uiPages from './uiPages';
 const env = process.env.ENV!;
 
 // Simplify the workflow and make it faster
-async function beforeEach(
+async function beforeEach<T>(
     page: Page,
     PageObjectParam: new (page: Page) => T,
     targetPage: keyof typeof uiPages,

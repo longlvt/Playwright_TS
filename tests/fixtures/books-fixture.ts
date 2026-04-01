@@ -1,10 +1,10 @@
 import { test as base } from '@playwright/test';
 import BookPage from '../../pages/book-page';
 import hooks from '../../utils/hooks';
-import uiPages from '../../utils/uiPages';
 
 type MyFixtures = {
     bookPage: BookPage;
+    bookSearch: BookPage;
 }
 
 export type Duplicate = {
@@ -21,6 +21,11 @@ export const test = base.extend<MyFixtures & Duplicate>({
 
         await bookPage.addToYourCollection(isDup);
     },
+
+    bookSearch: async ({ page }, use) => {
+        const searchPage = await hooks.beforeEach(page, BookPage, 'bookStore')
+        await use(searchPage)
+    }
 });
 
 export { expect } from '@playwright/test'

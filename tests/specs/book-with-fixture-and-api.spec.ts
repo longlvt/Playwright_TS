@@ -35,19 +35,20 @@ test.describe('Books - Fixture & API', () => {
 
     test('Delete book', async ({ page, bookPage }) => {
         // Remove book via API request
-        await removeBook(userId, userData.books.new, page)
+        await removeBook(userId, userData.books.new)
 
         // Add back via UI interaction
         await bookPage.goto(userData.books.new);
     })
+
 });
 
-async function cleanBooks(userId: string, page: Page) {
+export async function cleanBooks(userId: string) {
     await deleteBookAPIRequest.deleteAllBooksByUser(apiContext, userId);
     // await page.reload();
 };
 
-async function removeBook(userId: string, isbn: string, page: Page) {
+async function removeBook(userId: string, isbn: string) {
     await deleteBookAPIRequest.deleteBookAPIByIsbn(apiContext, userId, isbn)
 }
 

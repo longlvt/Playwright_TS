@@ -8,6 +8,7 @@ async function deleteAllBooksByUser(apiContext: APIRequestContext, userId: strin
   const method = methods.delete;
   const requestOptions = {};
   const requestUrl = buildUrl(endpoints.books.delete, userId);
+  console.log("DELETE ALL URL:", requestUrl)
   const response = await executeRequest(apiContext, requestUrl, method, requestOptions);
 }
 

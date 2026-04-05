@@ -2,7 +2,7 @@ import apiPath from './apiPaths';
 import baseAPIUrl from './envBaseUrl';
 import endpoints from './apiEndpoints';
 
-function bindUrl(endpoint: string, env: string, userId?: string, isbn?: string) {
+function bindUrl(endpoint: string, env: string, userId?: string, isbn?: string | string[]) {
   const parts = endpoint.replace(/\/.+$/, '').split('.');
   
   const endpointParts = parts.map((part) => {
@@ -38,7 +38,7 @@ function searchParamsForUrl(page: string, userId?: string) {
   return new URLSearchParams(queryParams).toString();
 }
 
-export function buildUrl(endpoint: string, userId?: string, isbn?: string) {
+export function buildUrl(endpoint: string, userId?: string, isbn?: string | string[]) {
   console.log("CHECK BUILD URL:", endpoint, userId, isbn)
   const env = process.env.ENV!;
   const url = [

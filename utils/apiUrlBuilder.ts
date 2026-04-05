@@ -26,7 +26,7 @@ function bindUrl(endpoint: string, env: string, userId?: string, isbn?: string) 
 
 function searchParamsForUrl(page: string, userId?: string) {
   let queryParams;
-
+  console.log("CHECK PARAMS:", userId)
   switch (page) {
     case endpoints.books.delete:
       queryParams = { UserId: userId };;
@@ -39,6 +39,7 @@ function searchParamsForUrl(page: string, userId?: string) {
 }
 
 export function buildUrl(endpoint: string, userId?: string, isbn?: string) {
+  console.log("CHECK BUILD URL:", endpoint, userId, isbn)
   const env = process.env.ENV!;
   const url = [
     bindUrl(endpoint, env, userId, isbn),

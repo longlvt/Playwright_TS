@@ -28,16 +28,28 @@ test.beforeAll(async ({ playwright }) => {
 test.describe('Books - Fixture & API', () => {
     // The scope of use is file or describe
     test.use({ isDup: false });
-    test('Add brand new book', async ({ page, bookPage }) => { //first thing that will happen is to call the fixture automatically. whenever the fixture has a "use" it goes back to the test and then go back to the fixture again when the test is done and execute any remaining commands
-        await cleanBooks(userId, page);
+    // test('Add brand new book', async ({ page, bookPage }) => { //first thing that will happen is to call the fixture automatically. whenever the fixture has a "use" it goes back to the test and then go back to the fixture again when the test is done and execute any remaining commands
+    //     await cleanBooks(userId, page);
+    //     await bookPage.goto(userData.books.new);
+    // });
+
+    test('Delete book', async ({ page, bookPage }) => {
+        // Remove book via API request
+        await removeBook(userId, userData.books.new, page)
+
+        // Add back via UI interaction
         await bookPage.goto(userData.books.new);
-    });
+    })
 });
 
 async function cleanBooks(userId: string, page: Page) {
     await deleteBookAPIRequest.deleteAllBooksByUser(apiContext, userId);
     // await page.reload();
 };
+
+async function removeBook(userId: string, isbn: string, page: Page) {
+    await deleteBookAPIRequest.deleteBookAPIByIsbn(apiContext, userId, isbn)
+}
 
 /**
  * 1. import the fixture file instead of the @playwright/test

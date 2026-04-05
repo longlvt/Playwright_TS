@@ -2,12 +2,7 @@ import { test } from '../fixtures/books-fixture';
 import { Page } from '@playwright/test';
 import searchData from '../../data/search-data';
 
-test.describe.configure({ mode: 'serial' });
-
-
 test.describe('Search Books - Fixture', () => {
-    // The scope of use is file or describe
-    test.use({ isDup: false });
     test('Search with 1 result', async ({ page, bookSearch }) => {
         await bookSearch.fillSearchBox(searchData.oneResult)
         await checkSearchResult(page, 1)        
